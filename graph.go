@@ -60,5 +60,3 @@ func Neighbors(g *Graph, u int) []int {
 	}
 	return keys
 }
-
-// hello
