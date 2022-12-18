@@ -21,5 +21,8 @@ distances := g.Dijkstra(0)
 // distance[3] = 2
 ```
 
+## Documentation
+Documentation for the package can be found [here.](https://pkg.go.dev/github.com/julcim/gograph)
+
 ## License
 GoGraph uses MIT License
