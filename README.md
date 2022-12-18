@@ -1,10 +1,10 @@
 # GoGraph
 Final project for CIS 1930. Implements a graph data structure and graph algorithms for Go.
 
-# Installing
+## Installing
 Run `$ go get github.com/julcim/GoGraph` in your terminal to install the package, and then use it as you desire. 
 
-# Simple Usages
+## Simple Usages
 ```
 var g Graph
 g.size = 3
@@ -21,5 +21,5 @@ distances := g.Dijkstra(0)
 // distance[3] = 2
 ```
 
-# License
+## License
 GoGraph uses MIT License
