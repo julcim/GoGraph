@@ -24,5 +24,7 @@ distances := g.Dijkstra(0)
 ## Documentation
 Documentation for the package can be found [here.](https://pkg.go.dev/github.com/julcim/gograph)
 
+Note: When using this library avoid reading and writing to a graph concurrently or writing concurrently to maintain thread safety. Reading concurrently will not pose a threat to thread safety.
+
 ## License
 GoGraph uses MIT License
