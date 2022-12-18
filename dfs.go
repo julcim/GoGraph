@@ -10,14 +10,14 @@ var time int
 // DFS runs the depth-first-search algorithm on a Graph.
 // After running, it outputs the parent array from the depth-first-search, which is
 // structured as parent[b] = a if a is deemed to be b's parent in the depth-first-search.
-func DFS(g *Graph) []int {
+func (g *Graph) DFS() []int {
 	// color white = 0
 	// color gray = 1
 	// color black = 2
-	color := make([]int, GetSize(g))
-	parent := make([]int, GetSize(g))
-	d := make([]int, GetSize(g))
-	f := make([]int, GetSize(g))
+	color := make([]int, g.GetSize())
+	parent := make([]int, g.GetSize())
+	d := make([]int, g.GetSize())
+	f := make([]int, g.GetSize())
 	for x := range g.graph {
 		color[x] = 0
 	}

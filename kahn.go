@@ -3,7 +3,7 @@ package goGraph
 // Kahn runs Kahn's algorithm for topologically sorting a Directed Acyclic Graph (DAG).
 // For a DAG, Kahn will return an output slice in topologically sorted order from index 0.
 // The behavior of this function is undefined if not called on a DAG.
-func Kahn(g *Graph) (output []int) {
+func (g *Graph) Kahn() (output []int) {
 	queue := make([]int, 0)
 	output = make([]int, 0)
 	indegree := make([]int, g.size)

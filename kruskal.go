@@ -1,7 +1,6 @@
 package goGraph
 
 import (
-	"fmt"
 	"sort"
 )
 
@@ -11,15 +10,14 @@ func Kruskal(g *Graph) *Graph {
 	var t Graph
 	t.size = g.size
 	t.graph = make([]adjList, t.size)
-	InitializeGraph(&t)
+	t.InitializeGraph()
 	edges := make([]Edge, 0)
-	fmt.Println(g)
 	for i := 0; i < g.size; i++ {
 		for u := range g.graph[i].list {
 			var e Edge
 			e.start = i
 			e.end = u
-			e.weight = GetWeight(g, i, u)
+			e.weight = g.GetWeight(i, u)
 			edges = append(edges, e)
 		}
 	}
@@ -28,37 +26,22 @@ func Kruskal(g *Graph) *Graph {
 		return edges[i].weight > edges[j].weight
 	})
 
-	// reverse := []Edge{}
-	// for i := range edges {
-	// 	// reverse the order
-	// 	reverse = append(reverse, edges[len(edges)-1-i])
-	// }
-	// edges = reverse
-	fmt.Println("edges", edges)
 	rank := make([]int, g.size)
 	parent := make([]int, g.size)
-	for i := 0; i < GetSize(g); i++ {
+	for i := 0; i < g.GetSize(); i++ {
 		rank[i] = 0
 		parent[i] = i
 	}
 	for i := 0; i < len(edges)-1; i++ {
 		if find(edges[i].start, parent) != find(edges[i].end, parent) {
-			weight := GetWeight(g, edges[i].start, edges[i].end)
-			AddEdge(&t, edges[i].start, edges[i].end, weight)
-			AddEdge(&t, edges[i].end, edges[i].start, weight)
+			weight := g.GetWeight(edges[i].start, edges[i].end)
+			t.AddEdge(edges[i].start, edges[i].end, weight)
+			t.AddEdge(edges[i].end, edges[i].start, weight)
 		}
 		union(edges[i].end, edges[i].start, parent, rank)
 	}
 	return &t
 
-}
-
-func reverse(arr []Edge) []Edge {
-	for i := 0; i < len(arr)/2; i++ {
-		j := len(arr) - i - 1
-		arr[i], arr[j] = arr[j], arr[i]
-	}
-	return arr
 }
 
 func find(v int, arr []int) int {

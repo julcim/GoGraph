@@ -11,9 +11,9 @@ func TestDfs(t *testing.T) {
 	for i := 0; i < g.size; i++ {
 		g.graph[i].list = map[int]int{}
 	}
-	AddEdge(&g, 0, 1, 2)
-	AddEdge(&g, 0, 2, 2)
-	actual := DFS(&g)
+	g.AddEdge(0, 1, 2)
+	g.AddEdge(0, 2, 2)
+	actual := g.DFS()
 	var expected []int
 	expected = append(expected, 0, 0, 0)
 	for i := 0; i < len(expected); i++ {
@@ -31,10 +31,10 @@ func TestDfs1(t *testing.T) {
 	for i := 0; i < g.size; i++ {
 		g.graph[i].list = map[int]int{}
 	}
-	AddEdge(&g, 0, 1, 2)
-	AddEdge(&g, 0, 2, 2)
-	AddEdge(&g, 2, 3, 2)
-	actual := DFS(&g)
+	g.AddEdge(0, 1, 2)
+	g.AddEdge(0, 2, 2)
+	g.AddEdge(2, 3, 2)
+	actual := g.DFS()
 	var expected []int
 	expected = append(expected, 0, 0, 0, 2)
 	for i := 0; i < len(expected); i++ {

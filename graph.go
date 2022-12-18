@@ -19,14 +19,14 @@ type adjList struct {
 
 // InitializeGraph initializes the input Graph by filling the adjancey list with empty maps
 // to avoid errors when adding edges.
-func InitializeGraph(g *Graph) {
+func (g *Graph) InitializeGraph() {
 	for i := 0; i < g.size; i++ {
 		g.graph[i].list = map[int]int{}
 	}
 }
 
 // GetSize returns the size parameter of the Graph
-func GetSize(g *Graph) (size int) {
+func (g *Graph) GetSize() (size int) {
 	return g.size
 }
 
@@ -37,8 +37,8 @@ func GetAdjList(g *Graph) (adjList []adjList) {
 
 // HasEdge takes in a Graph and two vertices. It outputs true if there is a
 // directed edge between the two vertices and false otherwise.
-func HasEdge(g *Graph, u int, v int) bool {
-	if u < 0 || u >= GetSize(g) || v < 0 || v >= GetSize(g) {
+func (g *Graph) HasEdge(u int, v int) bool {
+	if u < 0 || u >= g.size || v < 0 || v >= g.size {
 		panic("invalid vertices")
 	}
 	a := g.graph[u]
@@ -50,11 +50,11 @@ func HasEdge(g *Graph, u int, v int) bool {
 // GetWeight is called on a Graph and two vertices u and v. It returns the weight
 // of a directed edge from u to v. If the edge u to v does not exist, or the
 // vertices are out of range of the size of the graph, GetWeight throws an error.
-func GetWeight(g *Graph, u int, v int) int {
-	if u < 0 || u >= GetSize(g) || v < 0 || v >= GetSize(g) {
+func (g *Graph) GetWeight(u int, v int) int {
+	if u < 0 || u >= g.size || v < 0 || v >= g.size {
 		panic("invalid vertices")
 	}
-	if !(HasEdge(g, u, v)) {
+	if !(g.HasEdge(u, v)) {
 		panic("there is no edge from u to v")
 	}
 	a := g.graph[u]
@@ -64,7 +64,7 @@ func GetWeight(g *Graph, u int, v int) int {
 
 // AddEdge creates a vertex from u to v with a weight newWeight in a Graph.
 // If the vertices are not in the bounds of the Graph, AddEdge throws an error.
-func AddEdge(g *Graph, u int, v int, newWeight int) {
+func (g *Graph) AddEdge(u int, v int, newWeight int) {
 	if u < 0 || u >= g.size || v < 0 || v >= g.size {
 		panic("invalid vertices")
 	}

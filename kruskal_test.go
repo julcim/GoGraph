@@ -12,10 +12,10 @@ func TestKruskal(t *testing.T) {
 	for i := 0; i < g.size; i++ {
 		g.graph[i].list = map[int]int{}
 	}
-	AddEdge(&g, 0, 1, 2)
-	AddEdge(&g, 1, 0, 2)
-	AddEdge(&g, 1, 2, 2)
-	AddEdge(&g, 2, 1, 2)
+	g.AddEdge(0, 1, 2)
+	g.AddEdge(1, 0, 2)
+	g.AddEdge(1, 2, 2)
+	g.AddEdge(2, 1, 2)
 	actual := Kruskal(&g)
 	for i := 0; i < g.size; i++ {
 		if !reflect.DeepEqual(actual.graph[i].list, g.graph[i].list) {
