@@ -16,7 +16,7 @@ func TestKruskal(t *testing.T) {
 	g.AddEdge(1, 0, 2)
 	g.AddEdge(1, 2, 2)
 	g.AddEdge(2, 1, 2)
-	actual := Kruskal(&g)
+	actual := g.Kruskal()
 	for i := 0; i < g.size; i++ {
 		if !reflect.DeepEqual(actual.graph[i].list, g.graph[i].list) {
 			t.Errorf("wrong")

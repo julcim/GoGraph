@@ -6,7 +6,7 @@ import (
 
 // Kruskal runs the Kruskal algorithm on a given Graph and outputs a Graph pointer to a
 // Minimum Spanning Tree of that graph.
-func Kruskal(g *Graph) *Graph {
+func (g *Graph) Kruskal() *Graph {
 	var t Graph
 	t.size = g.size
 	t.graph = make([]adjList, t.size)

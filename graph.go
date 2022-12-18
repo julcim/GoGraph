@@ -33,18 +33,19 @@ func (g *Graph) InitializeGraph() {
 	}
 }
 
-// GetSize returns the size parameter of the Graph
+// Size returns the size parameter of the Graph
 func (g *Graph) Size() (size int) {
 	return g.size
 }
 
-// GetAdjList returns the adjList parameter of the Graph
-func AdjList(g *Graph) (adjList []adjList) {
+// AdjList returns the adjList parameter of the Graph
+func (g *Graph) AdjList() (adjList []adjList) {
 	return g.graph
 }
 
-// HasEdge takes in a Graph and two vertices. It outputs true if there is a
-// directed edge between the two vertices and false otherwise.
+// HasEdge is called on a Graph and two vertices. It outputs true if there is a
+// directed edge between the two vertices and false otherwise. HasEdge throws an
+// error if vertices outside the bounds are inputted.
 func (g *Graph) HasEdge(u int, v int) (bool, error) {
 	if u < 0 || u >= g.size || v < 0 || v >= g.size {
 		return false, errors.New("invalid vertices")
@@ -83,7 +84,7 @@ func (g *Graph) AddEdge(u int, v int, newWeight int) error {
 
 // Neighbors returns all the outgoing vertices/edges from a given vertex u
 // in a given Graph.
-func Neighbors(g *Graph, u int) []int {
+func (g *Graph) Neighbors(u int) []int {
 	a := g.graph[u]
 	keys := make([]int, 0, len(a.list))
 	for k := range a.list {
