@@ -1,25 +1,42 @@
+// Package goGraph implements graph algorithms and a Graph class to build graphs to
+// run those algorithms on.
 package goGraph
 
+// Graph represents a graph data structure and has parameters of size of
+// the graph (number of vertices) and a slice adjList which corresponds to the
+// adjacency list of the graph. This is implemented such that the index of the
+// adjList corresponds to the vertex of the Graph.
 type Graph struct {
 	size  int
 	graph []adjList
 }
 
+// AdjList represents the adjacency list for each vertex in the Graph above. It maps a vertex
+// v to its edge weight. If making an undirected graph, make the edge weight 0.
 type adjList struct {
 	list map[int]int
 }
 
-// getters
+// InitializeGraph initializes the input Graph by filling the adjancey list with empty maps
+// to avoid errors when adding edges.
+func InitializeGraph(g *Graph) {
+	for i := 0; i < g.size; i++ {
+		g.graph[i].list = map[int]int{}
+	}
+}
+
+// GetSize returns the size parameter of the Graph
 func GetSize(g *Graph) (size int) {
 	return g.size
 }
 
+// GetAdjList returns the adjList parameter of the Graph
 func GetAdjList(g *Graph) (adjList []adjList) {
 	return g.graph
 }
 
-// returns whether the current graph has a directed edge between
-// 2 vertices
+// HasEdge takes in a Graph and two vertices. It outputs true if there is a
+// directed edge between the two vertices and false otherwise.
 func HasEdge(g *Graph, u int, v int) bool {
 	if u < 0 || u >= GetSize(g) || v < 0 || v >= GetSize(g) {
 		panic("invalid vertices")
@@ -30,7 +47,9 @@ func HasEdge(g *Graph, u int, v int) bool {
 
 }
 
-// gets the weight of a directed edge
+// GetWeight is called on a Graph and two vertices u and v. It returns the weight
+// of a directed edge from u to v. If the edge u to v does not exist, or the
+// vertices are out of range of the size of the graph, GetWeight throws an error.
 func GetWeight(g *Graph, u int, v int) int {
 	if u < 0 || u >= GetSize(g) || v < 0 || v >= GetSize(g) {
 		panic("invalid vertices")
@@ -43,15 +62,17 @@ func GetWeight(g *Graph, u int, v int) int {
 	return value
 }
 
-// creates an edge from vertex u to v
+// AddEdge creates a vertex from u to v with a weight newWeight in a Graph.
+// If the vertices are not in the bounds of the Graph, AddEdge throws an error.
 func AddEdge(g *Graph, u int, v int, newWeight int) {
-	if u < 0 || u >= GetSize(g) || v < 0 || v >= GetSize(g) {
+	if u < 0 || u >= g.size || v < 0 || v >= g.size {
 		panic("invalid vertices")
 	}
 	g.graph[u].list[v] = newWeight
 }
 
-// returns all the vertices outgoing from a given vertex
+// Neighbors returns all the outgoing vertices/edges from a given vertex u
+// in a given Graph.
 func Neighbors(g *Graph, u int) []int {
 	a := g.graph[u]
 	keys := make([]int, 0, len(a.list))

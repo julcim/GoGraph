@@ -5,18 +5,11 @@ import (
 	"math"
 )
 
-// func remove(slice []int, value int) []int {
-// 	result := []int{}
-// 	for _, v := range slice {
-// 		if v != value {
-// 			result = append(result, v)
-// 		}
-// 	}
-// 	copy(slice, result)
-// 	return slice[:len(result)]
-// }
-
-func Dijkstra(g *Graph, source int) []int {
+// Dijkstra runs the known Dijkstra algorithm on a given Graph and source.
+// It outputs the shortest path from the source to all vertices in the graph in the
+// form of an array. This array is structured such that distance[a] is the
+// distance from the source to a.
+func Dijkstra(g *Graph, source int) (distance []int) {
 	fmt.Println("entered func")
 	dist := make([]int, g.size)
 	parent := make([]int, g.size)

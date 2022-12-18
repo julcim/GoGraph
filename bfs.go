@@ -1,5 +1,9 @@
 package goGraph
 
+// Bfs runs the breadth-first-search algorithm on a given Graph and source.
+// It returns the parent array of the Graph produced by the breadth-firt-search.
+// The parent array is structured so that if there exists an edge from vertex
+// a -> b, then in the output, parent[b] = a.
 func Bfs(g *Graph, source int) []int {
 	discovered := make([]bool, g.size)
 	parent := make([]int, g.size)

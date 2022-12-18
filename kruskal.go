@@ -1,13 +1,20 @@
 package goGraph
 
 import (
+	"fmt"
 	"sort"
 )
 
+// Kruskal runs the Kruskal algorithm on a given Graph and outputs a Graph pointer to a
+// Minimum Spanning Tree of that graph.
 func Kruskal(g *Graph) *Graph {
-	var t *Graph
-	edges := make([]Edge, 1)
-	for i := 0; i < GetSize(g); i++ {
+	var t Graph
+	t.size = g.size
+	t.graph = make([]adjList, t.size)
+	InitializeGraph(&t)
+	edges := make([]Edge, 0)
+	fmt.Println(g)
+	for i := 0; i < g.size; i++ {
 		for u := range g.graph[i].list {
 			var e Edge
 			e.start = i
@@ -21,21 +28,37 @@ func Kruskal(g *Graph) *Graph {
 		return edges[i].weight > edges[j].weight
 	})
 
-	var rank []int
-	var parent []int
+	// reverse := []Edge{}
+	// for i := range edges {
+	// 	// reverse the order
+	// 	reverse = append(reverse, edges[len(edges)-1-i])
+	// }
+	// edges = reverse
+	fmt.Println("edges", edges)
+	rank := make([]int, g.size)
+	parent := make([]int, g.size)
 	for i := 0; i < GetSize(g); i++ {
 		rank[i] = 0
 		parent[i] = i
 	}
 	for i := 0; i < len(edges)-1; i++ {
 		if find(edges[i].start, parent) != find(edges[i].end, parent) {
-			AddEdge(t, edges[i].start, edges[i].end, GetWeight(g, edges[i].start, edges[i].end))
-			AddEdge(t, edges[i].end, edges[i].start, GetWeight(g, edges[i].start, edges[i].end))
+			weight := GetWeight(g, edges[i].start, edges[i].end)
+			AddEdge(&t, edges[i].start, edges[i].end, weight)
+			AddEdge(&t, edges[i].end, edges[i].start, weight)
 		}
 		union(edges[i].end, edges[i].start, parent, rank)
 	}
-	return t
+	return &t
 
+}
+
+func reverse(arr []Edge) []Edge {
+	for i := 0; i < len(arr)/2; i++ {
+		j := len(arr) - i - 1
+		arr[i], arr[j] = arr[j], arr[i]
+	}
+	return arr
 }
 
 func find(v int, arr []int) int {

@@ -1,12 +1,19 @@
 package goGraph
 
+// employ the binary semaphore assigned to each graph to make sure only one function
+// can access the graph at any point
+// allow people to read at the same time but u cant read and write or write and write
+// at the same time
+
 var time int
 
-// color white = 0
-// color gray = 1
-// color black = 2
-
+// DFS runs the depth-first-search algorithm on a Graph.
+// After running, it outputs the parent array from the depth-first-search, which is
+// structured as parent[b] = a if a is deemed to be b's parent in the depth-first-search.
 func DFS(g *Graph) []int {
+	// color white = 0
+	// color gray = 1
+	// color black = 2
 	color := make([]int, GetSize(g))
 	parent := make([]int, GetSize(g))
 	d := make([]int, GetSize(g))
