@@ -31,10 +31,13 @@ func (g *Graph) Dijkstra(source int) (distance []int) {
 		}
 		delete(queue, u)
 		for v := range g.graph[u].list {
-			if dist[v] > dist[u]+g.GetWeight(u, v) {
-				dist[v] = dist[u] + g.GetWeight(u, v)
-				parent[v] = u
+			weight, err := g.GetWeight(u, v)
+			if err == nil {
+				if dist[v] > dist[u]+weight {
+					dist[v] = dist[u] + weight
+					parent[v] = u
 
+				}
 			}
 		}
 	}

@@ -13,9 +13,9 @@ func TestHasEdge(t *testing.T) {
 	}
 	g.AddEdge(0, 1, 2)
 	g.AddEdge(1, 2, 2)
-	actual := g.HasEdge(0, 1)
+	actual, err := g.HasEdge(0, 1)
 	expected := true
-	if actual != expected {
+	if actual != expected && err == nil {
 		t.Errorf("wrong")
 	}
 
@@ -30,9 +30,9 @@ func TestHasEdge1(t *testing.T) {
 	}
 	g.AddEdge(0, 1, 2)
 	g.AddEdge(1, 2, 2)
-	actual := g.HasEdge(0, 2)
+	actual, err := g.HasEdge(0, 2)
 	expected := false
-	if actual != expected {
+	if actual != expected && err == nil {
 		t.Errorf("wrong")
 	}
 

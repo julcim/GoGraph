@@ -14,10 +14,10 @@ func (g *Graph) DFS() []int {
 	// color white = 0
 	// color gray = 1
 	// color black = 2
-	color := make([]int, g.GetSize())
-	parent := make([]int, g.GetSize())
-	d := make([]int, g.GetSize())
-	f := make([]int, g.GetSize())
+	color := make([]int, g.Size())
+	parent := make([]int, g.Size())
+	d := make([]int, g.Size())
+	f := make([]int, g.Size())
 	for x := range g.graph {
 		color[x] = 0
 	}

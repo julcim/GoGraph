@@ -17,7 +17,10 @@ func Kruskal(g *Graph) *Graph {
 			var e Edge
 			e.start = i
 			e.end = u
-			e.weight = g.GetWeight(i, u)
+			weight, err := g.GetWeight(i, u)
+			if err == nil {
+				e.weight = weight
+			}
 			edges = append(edges, e)
 		}
 	}
@@ -28,15 +31,17 @@ func Kruskal(g *Graph) *Graph {
 
 	rank := make([]int, g.size)
 	parent := make([]int, g.size)
-	for i := 0; i < g.GetSize(); i++ {
+	for i := 0; i < g.Size(); i++ {
 		rank[i] = 0
 		parent[i] = i
 	}
 	for i := 0; i < len(edges)-1; i++ {
 		if find(edges[i].start, parent) != find(edges[i].end, parent) {
-			weight := g.GetWeight(edges[i].start, edges[i].end)
-			t.AddEdge(edges[i].start, edges[i].end, weight)
-			t.AddEdge(edges[i].end, edges[i].start, weight)
+			weight, err := g.GetWeight(edges[i].start, edges[i].end)
+			if err == nil {
+				t.AddEdge(edges[i].start, edges[i].end, weight)
+				t.AddEdge(edges[i].end, edges[i].start, weight)
+			}
 		}
 		union(edges[i].end, edges[i].start, parent, rank)
 	}

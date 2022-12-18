@@ -2,6 +2,14 @@
 // run those algorithms on.
 package goGraph
 
+import (
+	"errors"
+)
+
+type error interface {
+	Error() string
+}
+
 // Graph represents a graph data structure and has parameters of size of
 // the graph (number of vertices) and a slice adjList which corresponds to the
 // adjacency list of the graph. This is implemented such that the index of the
@@ -26,49 +34,51 @@ func (g *Graph) InitializeGraph() {
 }
 
 // GetSize returns the size parameter of the Graph
-func (g *Graph) GetSize() (size int) {
+func (g *Graph) Size() (size int) {
 	return g.size
 }
 
 // GetAdjList returns the adjList parameter of the Graph
-func GetAdjList(g *Graph) (adjList []adjList) {
+func AdjList(g *Graph) (adjList []adjList) {
 	return g.graph
 }
 
 // HasEdge takes in a Graph and two vertices. It outputs true if there is a
 // directed edge between the two vertices and false otherwise.
-func (g *Graph) HasEdge(u int, v int) bool {
+func (g *Graph) HasEdge(u int, v int) (bool, error) {
 	if u < 0 || u >= g.size || v < 0 || v >= g.size {
-		panic("invalid vertices")
+		return false, errors.New("invalid vertices")
 	}
 	a := g.graph[u]
 	_, isPresent := a.list[v]
-	return isPresent
+	return isPresent, nil
 
 }
 
 // GetWeight is called on a Graph and two vertices u and v. It returns the weight
 // of a directed edge from u to v. If the edge u to v does not exist, or the
 // vertices are out of range of the size of the graph, GetWeight throws an error.
-func (g *Graph) GetWeight(u int, v int) int {
+func (g *Graph) GetWeight(u int, v int) (int, error) {
 	if u < 0 || u >= g.size || v < 0 || v >= g.size {
-		panic("invalid vertices")
+		return -1, errors.New("invalid vertices")
 	}
-	if !(g.HasEdge(u, v)) {
-		panic("there is no edge from u to v")
+	has, err := g.HasEdge(u, v)
+	if err == nil && !has {
+		return -1, errors.New("there is no edge from u to v")
 	}
 	a := g.graph[u]
 	value := a.list[v]
-	return value
+	return value, nil
 }
 
 // AddEdge creates a vertex from u to v with a weight newWeight in a Graph.
 // If the vertices are not in the bounds of the Graph, AddEdge throws an error.
-func (g *Graph) AddEdge(u int, v int, newWeight int) {
+func (g *Graph) AddEdge(u int, v int, newWeight int) error {
 	if u < 0 || u >= g.size || v < 0 || v >= g.size {
-		panic("invalid vertices")
+		return errors.New("invalid vertices")
 	}
 	g.graph[u].list[v] = newWeight
+	return nil
 }
 
 // Neighbors returns all the outgoing vertices/edges from a given vertex u
