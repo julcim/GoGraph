@@ -1,4 +1,4 @@
-package goGraph
+package GoGraph
 
 // DFS runs the depth-first-search algorithm on a Graph.
 // After running, it outputs the parent array from the depth-first-search, which is

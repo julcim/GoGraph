@@ -1,6 +1,6 @@
-// Package goGraph implements graph algorithms and a Graph class to build graphs to
+// Package GoGraph implements graph algorithms and a Graph class to build graphs to
 // run those algorithms on.
-package goGraph
+package GoGraph
 
 import (
 	"errors"

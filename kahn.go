@@ -1,4 +1,4 @@
-package goGraph
+package GoGraph
 
 // Kahn runs Kahn's algorithm for topologically sorting a Directed Acyclic Graph (DAG).
 // For a DAG, Kahn will return an output slice in topologically sorted order from index 0.

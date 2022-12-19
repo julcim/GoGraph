@@ -1,4 +1,4 @@
-package goGraph
+package GoGraph
 
 import (
 	"math"

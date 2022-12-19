@@ -1,4 +1,4 @@
-package goGraph
+package GoGraph
 
 // Bfs runs the breadth-first-search algorithm on a given Graph and source.
 // It returns the parent array of the Graph produced by the breadth-firt-search.
